@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using deadlock_dotnet_sdk;
 using deadlock_dotnet_sdk.Domain;
 using static deadlock_dotnet_sdk.Domain.FileLockerEx.HandlesFilter;
