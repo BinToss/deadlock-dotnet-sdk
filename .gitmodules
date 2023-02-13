@@ -1,0 +1,3 @@
+[submodule "deadlock-dotnet-sdk"]
+	path = deadlock-dotnet-sdk
+	url = https://github.com/BinToss/deadlock-dotnet-sdk.git
