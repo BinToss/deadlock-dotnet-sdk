@@ -6,11 +6,7 @@ using static deadlock_dotnet_sdk.Domain.FileLockerEx.HandlesFilter;
 
 if (!UACHelper.UACHelper.IsElevated)
 {
-    //string? path = Environment.ProcessPath;
-    //if (path is not null)
-    //    UACHelper.UACHelper.StartElevated(new ProcessStartInfo(path, Environment.CommandLine) { UseShellExecute = true }).WaitForExit();
-    //else
-    Console.WriteLine("Administrative permissions required for operation; failed to restart process as admin.");
+    Console.WriteLine("Administrative permissions required for operation.");
 }
 else
 {
