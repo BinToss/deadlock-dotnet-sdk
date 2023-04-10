@@ -13,4 +13,8 @@
     <Nullable>enable</Nullable>
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
+ <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <!-- if false, generated code is only available in memory. 'true' eases troublehsooting of compile-time errors related to generated code -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+ </PropertyGroup>
 </Project>
