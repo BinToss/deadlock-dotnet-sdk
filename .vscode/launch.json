@@ -5,7 +5,29 @@
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch (console, watch)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "watch",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/deadlock-diagnostics/bin/Debug/net6.0-windows/deadlock-diagnostics.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/deadlock-diagnostics",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "justMyCode": false,
+            "enableStepFiltering": true,
+            "symbolOptions": {
+                "searchMicrosoftSymbolServer": true,
+                "searchNuGetOrgSymbolServer": true
+            }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": ".NET Core Launch (console, build)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -22,6 +44,22 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
-        }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/deadlock-diagnostics/bin/Debug/net6.0-windows/deadlock-diagnostics.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/deadlock-diagnostics",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
     ]
 }
