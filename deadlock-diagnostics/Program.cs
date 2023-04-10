@@ -11,21 +11,25 @@ if (!UACHelper.UACHelper.IsElevated)
 else
 {
     Console.WriteLine("Hello, World!");
+    Console.WriteLine(@"Opening file handle for C:\new.txt");
+    Console.WriteLine("TODO: Why does Console.WriteLine seem to do nothing when called on a worker thread (async)?");
+    File.Open(@"C:\new.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
     DeadLock? dl = new(false);
-    FileLockerEx? fileLockerEx = default;
+    FileLockerEx? fileLockerEx = null;
 
     var sw = Stopwatch.StartNew();
     try
     {
-        Process.EnterDebugMode();
-        fileLockerEx = dl.FindLockingHandles(filePath: @"C:\", FilesOnly | IncludeFailedTypeQuery | IncludeNonFiles, out WarningException? warningException);
+        fileLockerEx = dl.FindLockingHandles(filePath: @"C:\new.txt", FilesOnly/*  | IncludeFailedTypeQuery | IncludeNonFiles | IncludeProtectedProcesses */, out WarningException? warningException);
         sw.Stop();
         Console.WriteLine(sw.Elapsed);
-        if (warningException is not null) Console.WriteLine(warningException.ToString());
+        if (warningException is not null)
+            Console.WriteLine(warningException.ToString());
     }
     catch (Exception e)
     {
+        sw.Stop();
         Console.WriteLine(e.ToString());
         dl.RethrowExceptions = false;
     }
@@ -36,7 +40,10 @@ else
         Console.WriteLine(fileLockerEx.Path);
 
         // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/source-generation
-        Console.WriteLine(fileLockerEx.Lockers.ToString());
+        foreach (var locker in fileLockerEx.Lockers)
+        {
+            Console.WriteLine(locker);
+        }
     }
 
     Console.WriteLine("Does this look right?");
