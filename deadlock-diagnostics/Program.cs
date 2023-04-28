@@ -42,7 +42,17 @@ else
         // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/source-generation
         foreach (var locker in fileLockerEx.Lockers)
         {
-            Console.WriteLine(locker);
+            Console.WriteLine("Blindly attempting to close the following handle..." + Environment.NewLine + locker);
+            bool success = false;
+            try
+            {
+                success = locker.CloseSourceHandle();
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
+            Console.WriteLine("Attempt succeeded? [" + success + "]");
         }
     }
 
