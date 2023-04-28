@@ -1,0 +1,10 @@
+{
+    "filewatcher.commands": [
+        {
+            "match": ".*\\\\NativeMethods(\\.txt|\\.json)",
+            "isAsync": true,
+            "cmd": "o.restart",
+            "event": "onFileChange"
+        }
+    ]
+}
