@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace deadlock_dotnet_sdk.Domain
 {
@@ -66,6 +66,8 @@ namespace deadlock_dotnet_sdk.Domain
             }
         }
 
+        public ILogger<FileLockerEx> Logger { get; }
+
         #endregion Properties
 
         /// <summary>
@@ -97,6 +99,7 @@ namespace deadlock_dotnet_sdk.Domain
             {
                 if (!Windows.Win32.PInvoke.IsDebugModeEnabled())
                     System.Diagnostics.Process.EnterDebugMode();
+                Logger.DebugModeCheckAndEnableSucceeded();
             }
             catch (Exception e)
             {
