@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using deadlock_dotnet_sdk.Domain;
+using deadlock_dotnet_sdk.Loggers;
+using Microsoft.Extensions.Logging;
 using HandlesFilter = deadlock_dotnet_sdk.Domain.FileLockerEx.HandlesFilter;
 
 namespace deadlock_dotnet_sdk
@@ -8,6 +10,7 @@ namespace deadlock_dotnet_sdk
     public class DeadLock
     {
         #region Properties
+        public DeadLockLogger Logger { get; }
 
         /// <summary>
         /// Property that specifies whether inner exceptions should be rethrown or not
@@ -22,6 +25,13 @@ namespace deadlock_dotnet_sdk
         public DeadLock()
         {
             // Default constructor
+#if TRACE
+            Logger = new(LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace)).CreateLogger<DeadLock>());
+#elif DEBUG
+            Logger = new(LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Debug)).CreateLogger<DeadLock>());
+#else
+            Logger = new(LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Information)).CreateLogger<DeadLock>());
+#endif
         }
 
         /// <summary>
@@ -30,6 +40,19 @@ namespace deadlock_dotnet_sdk
         /// <param name="rethrowExceptions">True if inner exceptions should be rethrown, otherwise false</param>
         public DeadLock(bool rethrowExceptions)
         {
+            RethrowExceptions = rethrowExceptions;
+#if TRACE
+            Logger = new(LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace)).CreateLogger<DeadLock>());
+#elif DEBUG
+            Logger = new(LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Debug)).CreateLogger<DeadLock>());
+#else
+            Logger = new(LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Information)).CreateLogger<DeadLock>());
+#endif
+        }
+
+        public DeadLock(bool rethrowExceptions, DeadLockLogger logger)
+        {
+            Logger = logger;
             RethrowExceptions = rethrowExceptions;
         }
 
