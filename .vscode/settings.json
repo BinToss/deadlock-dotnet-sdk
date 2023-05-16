@@ -6,5 +6,8 @@
             "cmd": "o.restart",
             "event": "onFileChange"
         }
+    ],
+    "conventionalCommits.scopes": [
+        "deps"
     ]
 }
